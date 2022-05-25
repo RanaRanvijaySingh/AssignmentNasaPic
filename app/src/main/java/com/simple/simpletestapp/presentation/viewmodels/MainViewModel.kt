@@ -8,29 +8,34 @@ import com.simple.simpletestapp.usecases.GetPicUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val useCase: GetPicUseCase
 ) : ViewModel() {
 
-    val picUiModel = MutableLiveData<PicUiModel>()
-    val isLoading = MutableLiveData<Boolean>()
-    val showError = MutableLiveData<Boolean>()
+    val picsLiveData = MutableLiveData<List<PicUiModel>>()
+    val isLoadingLiveData = MutableLiveData<Boolean>()
+    val showErrorLiveData = MutableLiveData<Boolean>()
 
     fun getPic() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-                isLoading.value = true
+                isLoadingLiveData.value = true
             }
             try {
-                val uiModel = useCase.getPic()
-                uiModel?.let { picUiModel.postValue(it) }
-            } catch (e: Exception) {
-                showError.postValue(true)
+                val listPics = useCase.getPic()
+                if (listPics.isNullOrEmpty()) {
+                    showErrorLiveData.postValue(true)
+                } else {
+                    listPics.let { picsLiveData.postValue(it) }
+                }
+            } catch (e: RuntimeException) {
+                // Catching a general exception just in case. Don't want the app to crash.
+                showErrorLiveData.postValue(true)
             }
-            withContext(Dispatchers.Main) { isLoading.postValue(false) }
+            withContext(Dispatchers.Main) { isLoadingLiveData.postValue(false) }
         }
     }
 }

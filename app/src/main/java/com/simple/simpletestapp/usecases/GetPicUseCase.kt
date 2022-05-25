@@ -17,8 +17,8 @@ class GetPicUseCase @Inject constructor(
      *
      * @return [PicUiModel] or null
      */
-    suspend fun getPic(): PicUiModel? {
+    suspend fun getPic(): List<PicUiModel>? {
         val response = repository.getPic()
-        return modelMapper.getPic(response)
+        return modelMapper.getPics(response)
     }
 }

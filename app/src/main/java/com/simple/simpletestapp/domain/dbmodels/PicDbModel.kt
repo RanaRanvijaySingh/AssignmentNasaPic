@@ -15,4 +15,4 @@ data class PicDetailDbModel(
     val service_version: String? = null,
     val title: String? = null,
     val url: String? = null,
-) : ResponseModel()
+)

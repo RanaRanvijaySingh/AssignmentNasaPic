@@ -12,4 +12,6 @@
     <dimen name="margin_xxx_small">2dp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_large">18sp</dimen>
+    <dimen name="image_height">300dp</dimen>
+    <dimen name="image_max_height_full">500dp</dimen>
 </resources>

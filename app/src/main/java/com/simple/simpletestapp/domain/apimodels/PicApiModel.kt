@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName
 import com.simple.simpletestapp.domain.base.ResponseModel
 
 data class PicApiModel(
+    val pics: List<PicDetailApiModel>
+) : ResponseModel()
+
+class PicDetailApiModel(
     @SerializedName("copyright") val copyright: String? = null,
     @SerializedName("date") val date: String? = null,
     @SerializedName("explanation") val explanation: String? = null,
@@ -12,4 +16,4 @@ data class PicApiModel(
     @SerializedName("service_version") val service_version: String? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("url") val url: String? = null,
-) : ResponseModel()
+)

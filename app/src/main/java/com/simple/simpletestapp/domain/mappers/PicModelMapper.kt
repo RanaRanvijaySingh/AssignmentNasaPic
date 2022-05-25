@@ -1,6 +1,5 @@
 package com.simple.simpletestapp.domain.mappers
 
-import com.simple.simpletestapp.domain.apimodels.ErrorApiModel
 import com.simple.simpletestapp.domain.dbmodels.PicDbModel
 import com.simple.simpletestapp.domain.apimodels.PicApiModel
 import com.simple.simpletestapp.domain.base.ResponseModel
@@ -15,16 +14,13 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicUiModel] or null
      */
-    fun getPic(response: ResponseModel?): PicUiModel? {
+    fun getPics(response: ResponseModel?): List<PicUiModel>? {
         when (response) {
             is PicApiModel ->
-                return getPicFromApiModel(response)
+                return getPicsFromApiModel(response)
 
             is PicDbModel ->
-                return getPicFromDbModel(response)
-
-            is ErrorApiModel ->
-                return PicUiModel()
+                return getPicsFromDbModel(response)
         }
         return null
     }
@@ -34,8 +30,10 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicApiModel] or null
      */
-    private fun getPicFromApiModel(picApiModel: PicApiModel?): PicUiModel? {
-
+    private fun getPicsFromApiModel(picApiModel: PicApiModel?): List<PicUiModel>? {
+        /**
+         * Mapping logic to convert the api model class to ui model class.
+         */
         return null
     }
 
@@ -44,8 +42,21 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicDbModel] or null
      */
-    private fun getPicFromDbModel(picDbModel: PicDbModel?): PicUiModel? {
-
-        return null
+    private fun getPicsFromDbModel(picDbModel: PicDbModel?): List<PicUiModel> {
+        val list = ArrayList<PicUiModel>()
+        picDbModel?.let {
+            for (i in it.pics) {
+                val model = PicUiModel(
+                    copyright = i.copyright,
+                    date = i.date,
+                    explanation = i.explanation,
+                    hdurl = i.hdurl,
+                    title = i.title,
+                    url = i.url
+                )
+                list.add(model)
+            }
+        }
+        return list
     }
 }
