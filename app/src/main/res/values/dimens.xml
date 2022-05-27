@@ -6,12 +6,16 @@
     <dimen name="margin_xxx_large">48dp</dimen>
     <dimen name="margin_xxxx_large">96dp</dimen>
     <dimen name="margin_default">16dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="small_padding">12dp</dimen>
     <dimen name="margin_small">12dp</dimen>
     <dimen name="margin_x_small">8dp</dimen>
     <dimen name="margin_xx_small">4dp</dimen>
     <dimen name="margin_xxx_small">2dp</dimen>
-    <dimen name="text_size_small">12sp</dimen>
-    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
     <dimen name="image_height">300dp</dimen>
     <dimen name="image_max_height_full">500dp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="bottom_sheet_peek_height">100dp</dimen>
 </resources>

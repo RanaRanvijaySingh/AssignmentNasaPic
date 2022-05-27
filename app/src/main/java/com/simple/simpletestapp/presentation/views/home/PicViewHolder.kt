@@ -1,4 +1,4 @@
-package com.simple.simpletestapp.presentation.views
+package com.simple.simpletestapp.presentation.views.home
 
 import android.view.View
 import android.widget.ImageView
@@ -17,8 +17,6 @@ class PicViewHolder(itemView: View, private val listener: OnPicClickListener) :
             listener.onPicClick(model)
         }
     }
-
-
 }
 
 interface OnPicClickListener {

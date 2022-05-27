@@ -1,10 +1,12 @@
-package com.simple.simpletestapp.presentation.views
+package com.simple.simpletestapp.presentation.views.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.simple.simpletestapp.R
 import com.simple.simpletestapp.domain.uimodels.PicUiModel
 
@@ -18,7 +20,7 @@ class PicsAdapter(private val listener: OnPicClickListener) : RecyclerView.Adapt
         mContext = parent.context
         return PicViewHolder(
             LayoutInflater.from(mContext)
-                .inflate(R.layout.list_item_pic, null), this
+                .inflate(R.layout.item_pic, null), this
         )
     }
 
@@ -26,7 +28,7 @@ class PicsAdapter(private val listener: OnPicClickListener) : RecyclerView.Adapt
         holder.model = list[position]
         Glide.with(mContext)
             .load(list[position].url)
-            .centerCrop()
+            .transform(CenterCrop(), RoundedCorners(24))
             .placeholder(R.drawable.progress_drawable)
             .into(holder.ivPic)
     }

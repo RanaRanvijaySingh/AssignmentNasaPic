@@ -38,4 +38,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PicDetailViewModel::class)
+    internal abstract fun picDetailViewModel(viewModel: PicDetailViewModel): ViewModel
 }

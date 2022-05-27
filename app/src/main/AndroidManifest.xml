@@ -21,15 +21,20 @@
         android:theme="@style/Theme.SimpleTestApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.views.MainActivity"
+            android:name=".presentation.views.home.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.views.picdetail.PicDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

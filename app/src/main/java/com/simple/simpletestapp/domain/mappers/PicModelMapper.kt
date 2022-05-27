@@ -14,7 +14,7 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicUiModel] or null
      */
-    fun getPics(response: ResponseModel?): List<PicUiModel>? {
+    fun getPics(response: ResponseModel?): MutableList<PicUiModel>? {
         when (response) {
             is PicApiModel ->
                 return getPicsFromApiModel(response)
@@ -30,7 +30,7 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicApiModel] or null
      */
-    private fun getPicsFromApiModel(picApiModel: PicApiModel?): List<PicUiModel>? {
+    private fun getPicsFromApiModel(picApiModel: PicApiModel?): MutableList<PicUiModel>? {
         /**
          * Mapping logic to convert the api model class to ui model class.
          */
@@ -42,7 +42,7 @@ class PicModelMapper @Inject constructor() {
      *
      * @return [PicDbModel] or null
      */
-    private fun getPicsFromDbModel(picDbModel: PicDbModel?): List<PicUiModel> {
+    private fun getPicsFromDbModel(picDbModel: PicDbModel?): MutableList<PicUiModel> {
         val list = ArrayList<PicUiModel>()
         picDbModel?.let {
             for (i in it.pics) {

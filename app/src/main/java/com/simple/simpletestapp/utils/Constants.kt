@@ -8,4 +8,10 @@ class Constants {
             const val PICS = "/file/d/18t-LzVG7bxu-oPxJQZg8P49I9UHcA552/view"
         }
     }
+
+    class Intent {
+        companion object {
+            const val IMAGE_URL = "image_url"
+        }
+    }
 }

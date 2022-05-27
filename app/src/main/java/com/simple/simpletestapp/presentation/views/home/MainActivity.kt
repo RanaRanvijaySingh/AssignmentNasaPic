@@ -1,5 +1,6 @@
-package com.simple.simpletestapp.presentation.views
+package com.simple.simpletestapp.presentation.views.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,8 @@ import com.simple.simpletestapp.MyApplication
 import com.simple.simpletestapp.R
 import com.simple.simpletestapp.domain.uimodels.PicUiModel
 import com.simple.simpletestapp.presentation.viewmodels.MainViewModel
+import com.simple.simpletestapp.presentation.views.picdetail.PicDetailActivity
+import com.simple.simpletestapp.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -84,6 +87,8 @@ class MainActivity : AppCompatActivity(), OnPicClickListener {
     }
 
     override fun onPicClick(picModel: PicUiModel) {
-        Toast.makeText(this, picModel.title, Toast.LENGTH_LONG).show()
+        val intent = Intent(this, PicDetailActivity::class.java)
+        intent.putExtra(Constants.Intent.IMAGE_URL, picModel.url)
+        startActivity(intent)
     }
 }
