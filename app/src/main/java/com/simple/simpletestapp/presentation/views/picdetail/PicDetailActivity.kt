@@ -28,7 +28,7 @@ class PicDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pic_detail)
-        (application as MyApplication).getAppComponent().inject(this)
+        (application as MyApplication).appComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[PicDetailViewModel::class.java]
         initViews()
         initObservers()

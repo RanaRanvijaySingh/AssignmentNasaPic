@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.simple.simpletestapp.MyApplication
 import com.simple.simpletestapp.R
 import com.simple.simpletestapp.domain.uimodels.PicUiModel
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(), OnPicClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        (application as MyApplication).getAppComponent().inject(this)
+        (application as MyApplication).appComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
         initViews()
         initObservers()
@@ -90,5 +91,9 @@ class MainActivity : AppCompatActivity(), OnPicClickListener {
         val intent = Intent(this, PicDetailActivity::class.java)
         intent.putExtra(Constants.Intent.IMAGE_URL, picModel.url)
         startActivity(intent)
+    }
+
+    fun onclickbutton(view: View){
+        Toast.makeText(this, "Button click", Toast.LENGTH_LONG).show()
     }
 }

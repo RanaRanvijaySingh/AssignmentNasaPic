@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.simple.simpletestapp.domain.uimodels.PicUiModel
 import com.simple.simpletestapp.usecases.GetPicUseCase
-import kotlinx.coroutines.Dispatchers
+import com.simple.simpletestapp.utils.AppDispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val useCase: GetPicUseCase
+    private val useCase: GetPicUseCase,
+    private val appDispatchers: AppDispatchers
 ) : ViewModel() {
 
     val picsLiveData = MutableLiveData<List<PicUiModel>>()
@@ -20,12 +20,10 @@ class MainViewModel @Inject constructor(
     val showErrorLiveData = MutableLiveData<Boolean>()
 
     fun getPic() {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                isLoadingLiveData.value = true
-            }
+        viewModelScope.launch {
+            isLoadingLiveData.value = true
             try {
-                val listPics = useCase.getPic()
+                val listPics = withContext(appDispatchers.IO) { useCase.getPic() }
                 if (listPics.isNullOrEmpty()) {
                     showErrorLiveData.postValue(true)
                 } else {
@@ -35,7 +33,7 @@ class MainViewModel @Inject constructor(
                 // Catching a general exception just in case. Don't want the app to crash.
                 showErrorLiveData.postValue(true)
             }
-            withContext(Dispatchers.Main) { isLoadingLiveData.postValue(false) }
+            isLoadingLiveData.postValue(false)
         }
     }
 }

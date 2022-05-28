@@ -5,16 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.simple.simpletestapp.domain.uimodels.PicUiModel
 import com.simple.simpletestapp.usecases.GetPicUseCase
+import com.simple.simpletestapp.utils.AppDispatchers
 import com.simple.simpletestapp.utils.CommonUtil
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class PicDetailViewModel @Inject constructor(
     private val useCase: GetPicUseCase,
-    private val commonUtil: CommonUtil
+    private val commonUtil: CommonUtil,
+    private val appDispatchers: AppDispatchers
 ) : ViewModel() {
 
     val picsLiveData = MutableLiveData<List<PicUiModel>>()
@@ -26,12 +26,10 @@ class PicDetailViewModel @Inject constructor(
      * The list should contain the first item as the model of the selected image.
      */
     fun getPic(imageUrl: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                isLoadingLiveData.value = true
-            }
+        viewModelScope.launch {
+            isLoadingLiveData.value = true
             try {
-                val listPics = useCase.getPic()
+                val listPics = withContext(appDispatchers.IO) { useCase.getPic() }
                 if (listPics.isNullOrEmpty()) {
                     showErrorLiveData.postValue(true)
                 } else {
@@ -42,7 +40,7 @@ class PicDetailViewModel @Inject constructor(
                 // Catching a general exception just in case. Don't want the app to crash.
                 showErrorLiveData.postValue(true)
             }
-            withContext(Dispatchers.Main) { isLoadingLiveData.postValue(false) }
+            isLoadingLiveData.postValue(false)
         }
     }
 }
